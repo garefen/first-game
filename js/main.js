@@ -45,12 +45,12 @@ window.onload = () => {
     app.stage.addChild(endScreen);
     
     // generate texts
-    let text1 = new PIXI.Text("Clique para jogar");
+    let text1 = new PIXI.Text("Kill the red");
     text1.anchor.set(0.5);
     text1.x = app.view.width / 2;
     text1.y = app.view.height / 2 - 50;
     text1.style = new PIXI.TextStyle({
-        fill: 0xFFFFFF,
+        fill: 0xff2121,
         fontSize: 70,
         fontFamily: "Arial",
         fontStyle: "bold"
@@ -60,7 +60,7 @@ window.onload = () => {
     let text2 = new PIXI.Text(" Teclas de movimento: (W A S D)");
     text2.anchor.set(0.5);
     text2.x = app.view.width / 2;
-    text2.y = app.view.height / 2 + 100;
+    text2.y = app.view.height / 2 + 50;
     text2.style = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 20,
@@ -72,7 +72,7 @@ window.onload = () => {
     let text3 = new PIXI.Text(" Atirar: (space)");
     text3.anchor.set(0.5);
     text3.x = app.view.width / 2;
-    text3.y = app.view.height / 2 + 130;
+    text3.y = app.view.height / 2 + 80;
     text3.style = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 20,
@@ -80,6 +80,18 @@ window.onload = () => {
         fontStyle: "bold"
     })
     titleScreen.addChild(text3);
+
+    let text4 = new PIXI.Text("Clique para começar");
+    text4.anchor.set(0.5);
+    text4.x = app.view.width / 2;
+    text4.y = app.view.height / 2 + 150;
+    text4.style = new PIXI.TextStyle({
+        fill: 0x2121ff,
+        fontSize: 20,
+        fontFamily: "Arial",
+        fontStyle: "bold"
+    })
+    titleScreen.addChild(text4);
 
     let gameOverText = new PIXI.Text("Game Over");
     gameOverText.anchor.set(0.5);
