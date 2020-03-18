@@ -3,6 +3,7 @@ let app;
 let player;
 let enemy;
 let enemies = [];
+let highscore = 1;
 
 //move
 let keys = {};
@@ -204,6 +205,11 @@ const checkHit = () => {
 }
 
 const gameOver = () => {
+    if (screen > highscore) {
+        highscore = screen;
+        document.getElementById("hs").innerHTML = highscore;
+    }
+
     mainScreen.visible = false;
     endScreen.visible = true;
 
@@ -262,6 +268,7 @@ const replaceEnemies = (screen) => {
 }
 
 const newGame = () => {
+    document.getElementById("screen").innerHTML = "1";
     screen = 1;
     titleScreen.visible = false;
     mainScreen.visible = true;
@@ -272,5 +279,6 @@ const newGame = () => {
 
 const nextScreen = () => {
     screen += 1;
+    document.getElementById("screen").innerHTML = screen;
     replaceEnemies(screen);
 }
