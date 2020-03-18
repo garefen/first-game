@@ -202,6 +202,7 @@ const updateBullets = () => {
                     mainScreen.removeChild(enemies[e]);
                     enemies.splice(e, 1);
                     mainScreen.removeChild(bullets[i]);
+                    bullets.splice(i, 1);
                 }
             }
         }
