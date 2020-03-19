@@ -281,6 +281,7 @@ const gameOver = () => {
     player.x = app.view.width / 2;
     player.y = app.view.height - 100;
     powerupPicked = false;
+    powerupSpawn = false;
     mainScreen.removeChild(powerup);
 
     window.addEventListener("mousedown", newGame);
