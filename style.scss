@@ -13,10 +13,15 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 40px;
-    > span {
+    > div {
         display: flex;
         flex-direction: column;
         align-items: center;
+        h1 {
+            font-size: 60px;
+            margin: 0 auto;
+            font-weight: normal;
+        }
         span {
             font-size: 200px;
         }

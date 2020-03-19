@@ -4,6 +4,10 @@ let player;
 let enemy;
 let enemies = [];
 let highscore = 1;
+let powerup;
+let powerupSpawn = false;
+let powerupPicked = false;
+let powerInterval;
 
 //move
 let keys = {};
@@ -126,6 +130,11 @@ window.onload = () => {
 
     mainScreen.addChild(player);
 
+    //create the powerup
+
+    powerup = new PIXI.Sprite.from('img/powerup.png');
+    powerup.anchor.set(0.5);
+
     // keyboard events
     
     document.addEventListener('keydown', e => {
@@ -149,6 +158,7 @@ const gameLoop = () => {
     updateEnemies();
     checkEnemies();
     checkHit();
+    pickPowerUp();
     // move
     if (keys["87"]) {
         if (player.y > 15) {
@@ -172,9 +182,24 @@ const gameLoop = () => {
     }
 }
 
+const pickPowerUp = () => {
+    if (powerupSpawn && intersect(player, powerup)) {
+        clearInterval(powerInterval);
+        mainScreen.removeChild(powerup);
+        powerupPicked = true;
+        powerupSpawn = false;
+        powerInterval = setInterval(() => {
+            powerupPicked = false;
+        }, 5000)
+    }
+}
+
 const fireBullet = () => {
-    let bullet = createBullet();
-    bullets.push(bullet);
+    if (powerupPicked) {
+        createPoweredBullet();
+    } else {
+        createBullet();
+    }
 }
 
 const createBullet = () => {
@@ -182,18 +207,39 @@ const createBullet = () => {
     bullet.anchor.set(0.5);
     bullet.x = player.x;
     bullet.y = player.y;
-    bullet.initialY = player.y;
     bullet.speed = bulletSpeed;
+    bullet.direction = 1;
     mainScreen.addChild(bullet);
+    bullets.push(bullet);
+}
 
-    return bullet;
+const createPoweredBullet = async () => {
+    for (let i = 0; i < 3; i ++) {
+        let bullet = new PIXI.Sprite.from("img/bullet.png");
+        bullet.anchor.set(0.5);
+        bullet.x = player.x;
+        bullet.y = player.y;
+        bullet.speed = bulletSpeed;
+        
+        bullet.direction = i;
+        mainScreen.addChild(bullet);
+        bullets.push(bullet);
+    }
 }
 
 const updateBullets = () => {
     for (let i = 0; i < bullets.length; i++) {
-        bullets[i].position.y -= bullets[i].speed;
+        if (bullets[i].direction === 0) {
+            bullets[i].position.y -= bullets[i].speed;
+            bullets[i].position.x -= 1;
+        } else if (bullets[i].direction === 1) {
+            bullets[i].position.y -= bullets[i].speed;
+        } else if (bullets[i].direction === 2) {
+            bullets[i].position.y -= bullets[i].speed;
+            bullets[i].position.x += 1;
+        }
 
-        if (bullets[i].position.y < -100) {
+        if (bullets[i].position.y < -100 || bullets[i].position.x < -100 || bullets[i].position.x > 900) {
             mainScreen.removeChild(bullets[i]);
             bullets.splice(i, 1);
         } else {
@@ -230,9 +276,12 @@ const gameOver = () => {
         mainScreen.removeChild(enemies[i]);
         enemies.splice(i, 1);
     }
+
     screen = 1;
     player.x = app.view.width / 2;
     player.y = app.view.height - 100;
+    powerupPicked = false;
+    mainScreen.removeChild(powerup);
 
     window.addEventListener("mousedown", newGame);
 }
@@ -280,7 +329,7 @@ const addEnemy = (x, y, speed) => {
 
 const replaceEnemies = (screen) => {
     for (let i = 0; i < screen; i++) {
-        addEnemy(Math.floor(Math.random() * (800)), 30, Math.floor(Math.random() * (5 - 1 + 1)) + 1) ;
+        addEnemy(Math.floor(Math.random() * (770 - 30)) + 30, 30, Math.floor(Math.random() * (5 - 1 + 1)) + 1) ;
     }
 }
 
@@ -298,4 +347,10 @@ const nextScreen = () => {
     screen += 1;
     document.getElementById("screen").innerHTML = screen;
     replaceEnemies(screen);
+    if (!powerupSpawn && screen % 3 === 0) {
+        powerup.x = Math.floor(Math.random() * 790 - 10) + 10;
+        powerup.y = Math.floor(Math.random() * 580 - 20) + 20;
+        mainScreen.addChild(powerup);
+        powerupSpawn = true;
+    }
 }

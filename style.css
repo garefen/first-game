@@ -34,7 +34,7 @@ body {
   font-size: 40px;
 }
 
-.score > span {
+.score > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -47,7 +47,13 @@ body {
           align-items: center;
 }
 
-.score > span span {
+.score > div h1 {
+  font-size: 60px;
+  margin: 0 auto;
+  font-weight: normal;
+}
+
+.score > div span {
   font-size: 200px;
 }
 
