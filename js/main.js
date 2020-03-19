@@ -248,13 +248,17 @@ const updateEnemies = () => {
 }
 
 const intersect = (a, b) => {
-    let aBox = a.getBounds();
-    let bBox = b.getBounds();
-
-    return aBox.x + aBox.width > bBox.x && 
-            aBox.y + aBox.height > bBox.y &&
-            aBox.x < bBox.x + bBox.width &&
-            aBox.y < bBox.y + bBox.height
+    if (a && b) {
+        let aBox = a.getBounds();
+        let bBox = b.getBounds();
+        
+        return aBox.x + aBox.width > bBox.x && 
+                aBox.y + aBox.height > bBox.y &&
+                aBox.x < bBox.x + bBox.width &&
+                aBox.y < bBox.y + bBox.height;
+    } else {
+        return false;
+    }
 }           
 
 const checkEnemies = () => {
