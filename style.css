@@ -9,7 +9,7 @@ body {
   font-family: arial;
 }
 
-.score {
+.side {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -34,7 +34,7 @@ body {
   font-size: 40px;
 }
 
-.score > div {
+.side div.points {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -47,18 +47,33 @@ body {
           align-items: center;
 }
 
-.score > div h1 {
+.side div.points h1 {
   font-size: 60px;
   margin: 0 auto;
   font-weight: normal;
 }
 
-.score > div span {
+.side div.points span {
   font-size: 200px;
 }
 
-.score > p {
+.side .high p {
   margin-top: 100px;
   font-size: 20px;
+}
+
+.side .rules {
+  border-top: 1px solid black;
+  width: 100%;
+  text-align: center;
+}
+
+.side .rules p {
+  margin-top: 30px;
+  font-size: 1rem;
+}
+
+.side .rules span {
+  font-size: 1rem;
 }
 /*# sourceMappingURL=style.css.map */

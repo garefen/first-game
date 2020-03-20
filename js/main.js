@@ -1,6 +1,7 @@
 //game
 let app;
 let player;
+let playerSpeed = 5;
 let enemy;
 let enemies = [];
 let highscore = 1;
@@ -61,7 +62,7 @@ window.onload = () => {
     })
     titleScreen.addChild(text1);
 
-    let text2 = new PIXI.Text(" Teclas de movimento: (W A S D)");
+    let text2 = new PIXI.Text(" Move: (W A S D)");
     text2.anchor.set(0.5);
     text2.x = app.view.width / 2;
     text2.y = app.view.height / 2 + 50;
@@ -73,7 +74,7 @@ window.onload = () => {
     })
     titleScreen.addChild(text2);
     
-    let text3 = new PIXI.Text(" Atirar: (space)");
+    let text3 = new PIXI.Text(" Shoot: (space)");
     text3.anchor.set(0.5);
     text3.x = app.view.width / 2;
     text3.y = app.view.height / 2 + 80;
@@ -85,7 +86,7 @@ window.onload = () => {
     })
     titleScreen.addChild(text3);
 
-    let text4 = new PIXI.Text("Clique para começar");
+    let text4 = new PIXI.Text("Click to start");
     text4.anchor.set(0.5);
     text4.x = app.view.width / 2;
     text4.y = app.view.height / 2 + 150;
@@ -109,7 +110,7 @@ window.onload = () => {
     })
     endScreen.addChild(gameOverText);
 
-    let gameOverText2 = new PIXI.Text("Clique para jogar novamente");
+    let gameOverText2 = new PIXI.Text("Click to play again");
     gameOverText2.anchor.set(0.5);
     gameOverText2.x = app.view.width / 2;
     gameOverText2.y = app.view.height / 2 + 30;
@@ -162,22 +163,22 @@ const gameLoop = () => {
     // move
     if (keys["87"]) {
         if (player.y > 15) {
-            player.y -= 7;
+            player.y -= playerSpeed;
         }
     }
     if (keys["83"]) {
         if (app.view.height - player.y > 15) {
-            player.y += 7;
+            player.y += playerSpeed;
         }
     }
     if (keys["68"]) {
         if (app.view.width - player.x > 15) {
-            player.x += 7;
+            player.x += playerSpeed;
         }
     }
     if (keys["65"]) {
         if (player.x > 15) {
-            player.x -= 7;
+            player.x -= playerSpeed;
         }
     }
 }
@@ -249,6 +250,10 @@ const updateBullets = () => {
                     enemies.splice(e, 1);
                     mainScreen.removeChild(bullets[i]);
                     bullets.splice(i, 1);
+                    if (playerSpeed <= 9) {
+                        playerSpeed += 1;
+                        console.log(playerSpeed);
+                    }
                 }
             }
         }
@@ -293,6 +298,10 @@ const updateEnemies = () => {
             enemies[i].position.y += enemies[i].speed;
         } else {
             enemies[i].position.y = 0;
+            if (playerSpeed > 5) {
+                playerSpeed -= 1;
+                console.log(playerSpeed);
+            }
         }
     }
 }
